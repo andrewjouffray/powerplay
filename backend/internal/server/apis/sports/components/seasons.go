@@ -1,4 +1,4 @@
-package season
+package components
 
 import (
 	"github.com/gofiber/fiber/v2"
@@ -13,7 +13,6 @@ import (
 func init() {
 	apis.RegisterHandler(fiber.MethodGet, "/seasons", auth.Public, getSeasonsHandler)
 	apis.RegisterHandler(fiber.MethodPost, "/seasons", auth.Public, postSeasonsHandler)
-
 }
 
 func getSeasonsHandler(c *fiber.Ctx) error {
@@ -39,7 +38,7 @@ func postSeasonsHandler(c *fiber.Ctx) error {
 	}
 
 	db := db.GetSession(c)
-	record, err := db.SaveSeason(seasonPostRequest)
+	record, err := db.CreateSeason(seasonPostRequest)
 
 	if err != nil {
 		log.WithErr(err).Alert("Failed to parse season request payload")
